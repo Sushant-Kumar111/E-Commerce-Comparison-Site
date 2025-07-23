@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcommCompare</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="./index.html">EcommCompare</a>
+        </div>
+        
+        <div class="search">
+            <input
+            class="search-input"
+            type="textbox"
+            id="search-input"
+            placeholder="Search for a product..."
+            >
+            <button class="search-button" onclick="searchProducts()">
+                <img class="search-icon" src="icons/search.svg">
+            </button>
+        </div>
+        <div >
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mainbody">
+        <div class="nav2">
+            
+            <a href="./mobile.html">Mobile</a>
+            <a href="./laptop.html">Laptop</a>
+            <a href="./tablets.html">Tablets</a>
+            <a href="./watches.html">Watches</a>
+            <a href="./headphones.html">Headphones</a>
+
+            
+        </div>
+        <div class="body-content" id="product-list">
+            
+        </div>
+    </div>
+
+    
+
+    <div class="footer" id="contact">
+        <h2>Contact</h2>
+        <div class="contact-sec">
+            
+            <p class="email">xyz@gmail.com</p>
+            <p>+919131478824</p>
+        </div>
+
+        
+    </div>
+
+    <script>
+        const productData = [
+            {
+                name: 'Samsung Galaxy S24 Ultra 5G AI Smartphone (Titanium Black, 12GB, 256GB Storage)',
+                img: 'images/71RVuBs3q9L._AC_UF1000,1000_QL80_.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹131,999', link: 'https://www.flipkart.com/samsung-galaxy-s24-ultra-5g-titanium-gray-512-gb/p/itm463827d6eb2be' },
+                    { platform: 'Amazon', price: '₹121,999', link: 'https://www.amazon.in/Samsung-Galaxy-Smartphone-Titanium-Storage/dp/B0CS5Z4GD3' }
+                ]
+            },
+            {
+                name: 'Apple iPhone 16 Pro Max (White Titanium, 256 GB)',
+                img: 'images/iPhone_16_Pro_Max_White_Titanium_PDP_Image_Position_1__en-IN_1838989e-5eca-4e95-a375-c9022f2892c9.webp',
+                prices: [
+                    { platform: 'Flipkart', price: '₹160,999', link: 'https://www.flipkart.com/apple-iphone-16-pro-max-desert-titanium-256-gb/p/itmb102b8a51100e?pid=MOBH4DQFTQHZAKAF&lid=LSTMOBH4DQFTQHZAKAFRC45AZ&marketplace=FLIPKART&cmpid=content_mobile_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹164,999', link: 'https://www.amazon.in/Apple-iPhone-Pro-Max-512/dp/B0DGHW2SRL/ref=sr_1_3?dib=eyJ2IjoiMSJ9.dmN1xGMIuidynRjNSyF4fqQB60ziLlnS5dssSidjAc9AvQMNuR_3XoSyH01Ri9NkWzGPHrsnCBLsCnJ39Jnx6KA6cXFgOXQ1mrqo8am7mPdLhx7yAaTbtPhlM0PQSPcHhR9Ft_SXVW0BWNfJPVQDs8h4Da-RQb9LNnEnyiSU7FdNWaUA5p44tsLkhc_9c551K6H6hkE_mQVDocmeVfSPqg1_6bX-Q9PZlYxwA-4bvbM.PM5qceqKdcKV5x1uahMT_pjPA35-pwfahDyvDlw6vDc&dib_tag=se&keywords=iphone+16+pro+max&qid=1727408045&sr=8-3' }
+                ]
+            },
+            {
+                name: 'Google Pixel 9 Pro XL (Porcelain, 256 GB)',
+                img: 'images/71NRTIgZjXL.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹1,24,999', link: 'https://www.flipkart.com/google-pixel-9-pro-xl-porcelain-256-gb/p/itm23d7e159c924d?pid=MOBH2HJGE33F8KHN' },
+                    { platform: 'Amazon', price: '₹1,22,999', link: 'https://www.amazon.com/Google-Pixel-Pro-Unlocked-Smartphone/dp/B0D7HVCD91' }
+                ]
+            },
+            
+            {
+                name: 'Apple iPhone 16 (White, 128 GB)',
+                img: 'images/iphone16.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹79,990', link: 'https://www.flipkart.com/apple-iphone-16-ultramarine-128-gb/p/itmcc210cae43fba?pid=MOBH4DQFYZT6EH2F&lid=LSTMOBH4DQFYZT6EH2FP6PUJU&marketplace=FLIPKART&sattr[]=color&sattr[]=storage&st=color' },
+                    { platform: 'Amazon', price: '₹79,990', link: 'https://www.amazon.in/Apple-iPhone-16-128-GB/dp/B0DGJ7TGDR?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy S24 5G AI Smartphone (Amber Yellow, 8GB, 128GB Storage)',
+                img: 'images/s24.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹62,999', link: 'https://www.flipkart.com/samsung-galaxy-s24-5g-amber-yellow-128-gb/p/itmc7715e16403d1?pid=MOBHYJ6QMSGJG28G&lid=LSTMOBHYJ6QMSGJG28GKEE5UE&marketplace=FLIPKART&cmpid=content_mobile_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹55,499', link: 'https://www.amazon.in/Samsung-Galaxy-Smartphone-Yellow-Storage/dp/B0CS5ZZMN8?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A2FS4NK0NQR709&th=1' }
+                ]
+            },
+            {
+                name: 'Google Pixel 9 (Peony, 256 GB)  (12 GB RAM)',
+                img: 'images/pixel-9.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹79,999', link: 'https://www.flipkart.com/google-pixel-9-peony-256-gb/p/itmdfee129571238?pid=MOBH2HJGNG6PVUYH&lid=LSTMOBH2HJGNG6PVUYHXGA7EB&marketplace=FLIPKART&sattr[]=color&st=color' },
+                    { platform: 'Amazon', price: '₹79,999', link: 'https://www.amazon.in/Obsidian-12GB-RAM-128GB-Storage/dp/B0DBG4Q7DQ' }
+                ]
+            },
+            
+            
+            
+        ];
+
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; 
+
+            products.forEach(product => {
+                const productHTML = `
+                <div class="items">
+                    <div class="product">
+                        <img class="image" src="${product.img}" alt="${product.name}">
+                    </div>
+                    <div class="cards">
+                        <div class="pro-name">
+                            <p>${product.name}</p>
+                        </div>
+                        <div>
+                            <table>
+                                ${product.prices.map(price =>
+                    `<tr>
+                        <th><a href="${price.link}" target="_blank">${price.platform}</a></th>
+                        <th>${price.price}</th>
+                    </tr>`).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+                productList.innerHTML += productHTML;
+            });
+        }
+
+      
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filteredProducts = productData.filter(product =>
+                product.name.toLowerCase().includes(query)
+            );
+            displayProducts(filteredProducts);
+        }
+
+ 
+        displayProducts(productData);
+    </script>
+</body>
+</html>

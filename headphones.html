@@ -1,0 +1,138 @@
+.<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcommCompare</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="./index.html">EcommCompare</a>
+        </div>
+        
+        <div class="search">
+            <input
+            class="search-input"
+            type="textbox"
+            id="search-input"
+            placeholder="Search for a product..."
+            >
+            <button class="search-button" onclick="searchProducts()">
+                <img class="search-icon" src="icons/search.svg">
+            </button>
+        </div>
+        <div >
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mainbody">
+        <div class="nav2">
+            
+            <a href="./mobile.html">Mobile</a>
+            <a href="./laptop.html">Laptop</a>
+            <a href="./tablets.html">Tablets</a>
+            <a href="./watches.html">Watches</a>
+            <a href="./headphones.html">Headphones</a>
+
+            
+        </div>
+        <div class="body-content" id="product-list">
+            
+        </div>
+    </div>
+
+    
+
+    <div class="footer" id="contact">
+        <h2>Contact</h2>
+        <div class="contact-sec">
+            
+            <p class="email">xyz@gmail.com</p>
+            <p>+919131478824</p>
+        </div>
+
+        
+    </div>
+
+    <script>
+        const productData = [
+            {
+                name: 'Apple AirPods Pro (2nd Generation) with MagSafe Case (USB-C)(White)',
+                img: 'images/airpod.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹21,990', link: 'https://www.flipkart.com/apple-airpods-pro-2nd-generation-active-noise-cancellation-spatial-audio-bluetooth-gaming/p/itmbfc083335b35c?pid=ACCGHWWGAAZDXNR2&lid=LSTACCGHWWGAAZDXNR2RMRPVQ&marketplace=FLIPKART&cmpid=content_headphone_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹23,790', link: 'https://www.amazon.in/Apple-AirPods-Generation-MagSafe-USB%E2%80%91C/dp/B0CHX719JD?dib=eyJ2IjoiMSJ9.FZTR64HXs7z1I4zqR8MZLk4yAbSNWYWHCI2gq_5PM6a_CazWPgxGHUvVj_iXMowxT7da0YY6Odpe0Lem82ffA23oduFCrnqkvyAq0ozhrduV-34onuZB0J_uVIzuox5NK47DzxNhqKlp2h7Z9BogtzUknyBKIek7_6oaniKVXd8XNOVjwdsgcQp__agLFLV1CX3AJBbABQjUkNLX-KddcsZsAAx4ri6jrO_9dpr9Fgs.0kamSxSPTqP0ndI0JdnojFhLW4XoL-TNmonNfafG65c&dib_tag=se&keywords=apple+airpods+pro+3&nsdOptOutParam=true&qid=1730581317&sr=8-1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Buds 3 (Silver) with Galaxy AI Powered Real-time Interpreter',
+                img: 'images/samsung.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹13,855', link: 'https://www.flipkart.com/samsung-galaxy-buds-3-bluetooth/p/itma79f55056b77f?pid=ACCH28ZAJSVH96G2&lid=LSTACCH28ZAJSVH96G2NG2KLR&marketplace=FLIPKART&cmpid=content_headphone_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹12,999', link: 'https://www.amazon.in/Samsung-Powered-Real-time-Interpreter-Battery/dp/B0D7M34JXY?th=1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Buds 3 Pro (White) with Galaxy AI',
+                img: 'images/sams3.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹19,845', link: 'https://www.flipkart.com/samsung-galaxy-buds-3-pro-bluetooth/p/itm016b1079d82cc?pid=ACCH28Z8GSWSBFMV&lid=LSTACCH28Z8GSWSBFMVTJSDGA&marketplace=FLIPKART&sattr[]=color&st=color' },
+                    { platform: 'Amazon', price: '₹19,999', link: 'https://www.amazon.in/Samsung-Adaptive-Real-Time-Interpreter-Battery/dp/B0D7M3QQQM?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+        ];
+
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; 
+
+            products.forEach(product => {
+                const productHTML = `
+                <div class="items">
+                    <div class="product">
+                        <img class="image" src="${product.img}" alt="${product.name}">
+                    </div>
+                    <div class="cards">
+                        <div class="pro-name">
+                            <p>${product.name}</p>
+                        </div>
+                        <div>
+                            <table>
+                                ${product.prices.map(price =>
+                    `<tr>
+                        <th><a href="${price.link}" target="_blank">${price.platform}</a></th>
+                        <th>${price.price}</th>
+                    </tr>`).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+                productList.innerHTML += productHTML;
+            });
+        }
+
+      
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filteredProducts = productData.filter(product =>
+                product.name.toLowerCase().includes(query)
+            );
+            displayProducts(filteredProducts);
+        }
+
+ 
+        displayProducts(productData);
+    </script>
+</body>
+</html>

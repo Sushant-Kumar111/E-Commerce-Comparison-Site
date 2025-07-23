@@ -1,0 +1,138 @@
+.<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcommCompare</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="./index.html">EcommCompare</a>
+        </div>
+        
+        <div class="search">
+            <input
+            class="search-input"
+            type="textbox"
+            id="search-input"
+            placeholder="Search for a product..."
+            >
+            <button class="search-button" onclick="searchProducts()">
+                <img class="search-icon" src="icons/search.svg">
+            </button>
+        </div>
+        <div >
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mainbody">
+        <div class="nav2">
+            
+            <a href="./mobile.html">Mobile</a>
+            <a href="./laptop.html">Laptop</a>
+            <a href="./tablets.html">Tablets</a>
+            <a href="./watches.html">Watches</a>
+            <a href="./headphones.html">Headphones</a>
+
+            
+        </div>
+        <div class="body-content" id="product-list">
+            
+        </div>
+    </div>
+
+    
+
+    <div class="footer" id="contact">
+        <h2>Contact</h2>
+        <div class="contact-sec">
+            
+            <p class="email">xyz@gmail.com</p>
+            <p>+919131478824</p>
+        </div>
+
+        
+    </div>
+
+    <script>
+        const productData = [
+            {
+                name: 'Apple Watch Ultra 2 GPS + Cellular 49mm Natural Titanium Case with Navy Ocean Band',
+                img: 'images/ultra2.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹89,900', link: 'https://www.flipkart.com/apple-watch-ultra-2-gps-cellular-49mm-natural-titanium-navy-ocean-band/p/itm99834d6b83bfd?pid=SMWH4JBWMVGWXWYG&lid=LSTSMWH4JBWMVGWXWYGZD793U&marketplace=FLIPKART&cmpid=content_smartwatch_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹89,900', link: 'https://www.amazon.in/Apple-Cellular-Natural-Titanium-Alpine/dp/B0DGJCZ498?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Apple Watch Ultra [GPS + Cellular 49 mm] smart watch w/Rugged Titanium Case & Orange Alpine Loop',
+                img: 'images/ultra1.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹74,999', link: 'https://www.flipkart.com/apple-watch-ultra-gps-cellular/p/itm4b2d1db108849' },
+                    { platform: 'Amazon', price: '₹74,999', link: 'https://www.amazon.in/Apple-Cellular-Rugged-Titanium-Orange/dp/B0BDKGNMJQ?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Watch Ultra (47mm, LTE, Gray) ',
+                img: 'images/sams.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹59,999', link: 'https://www.flipkart.com/samsung-galaxy-watch-ultra/p/itmb2a8dd1d2e928' },
+                    { platform: 'Amazon', price: '₹46,950', link: 'https://www.amazon.in/Samsung-Battery-Processor-Sapphire-Titanium/dp/B0D7M54GMJ?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A2FABMLW9MRIQN&th=1' }
+                ]
+            },
+        ];
+
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; 
+
+            products.forEach(product => {
+                const productHTML = `
+                <div class="items">
+                    <div class="product">
+                        <img class="image" src="${product.img}" alt="${product.name}">
+                    </div>
+                    <div class="cards">
+                        <div class="pro-name">
+                            <p>${product.name}</p>
+                        </div>
+                        <div>
+                            <table>
+                                ${product.prices.map(price =>
+                    `<tr>
+                        <th><a href="${price.link}" target="_blank">${price.platform}</a></th>
+                        <th>${price.price}</th>
+                    </tr>`).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+                productList.innerHTML += productHTML;
+            });
+        }
+
+      
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filteredProducts = productData.filter(product =>
+                product.name.toLowerCase().includes(query)
+            );
+            displayProducts(filteredProducts);
+        }
+
+ 
+        displayProducts(productData);
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+    background-image: url('./images/joanna-kosinska-1_CMoFsPfso-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-container {
+    width: 600px;
+    padding: 20px;
+    background: #ffffffd4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    box-shadow: 3px 3px 3px black;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+form p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+form a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+form a:hover {
+    text-decoration: underline;
+}

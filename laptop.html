@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcommCompare</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="./index.html">EcommCompare</a>
+        </div>
+        
+        <div class="search">
+            <input
+            class="search-input"
+            type="textbox"
+            id="search-input"
+            placeholder="Search for a product..."
+            >
+            <button class="search-button" onclick="searchProducts()">
+                <img class="search-icon" src="icons/search.svg">
+            </button>
+        </div>
+        <div >
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mainbody">
+        <div class="nav2">
+            
+            <a href="./mobile.html">Mobile</a>
+            <a href="./laptop.html">Laptop</a>
+            <a href="./tablets.html">Tablets</a>
+            <a href="./watches.html">Watches</a>
+            <a href="./headphones.html">Headphones</a>
+
+            
+        </div>
+        <div class="body-content" id="product-list">
+            
+        </div>
+    </div>
+
+    
+
+    <div class="footer" id="contact">
+        <h2>Contact</h2>
+        <div class="contact-sec">
+            
+            <p class="email">xyz@gmail.com</p>
+            <p>+919131478824</p>
+        </div>
+
+        
+    </div>
+
+    <script>
+        const productData = [
+            {
+                    name: 'Apple Macbook Air Apple M2 - (8 GB/256 GB SSD/macOS Ventura)',
+                    img: 'images/m2.jpg',
+                    prices: [
+                        { platform: 'Flipkart', price: '₹1,09,990', link: 'https://www.flipkart.com/apple-macbook-air-m2-8-gb-256-gb-ssd-macos-ventura-mqkw3hn-a/p/itm3fc4c0939339a?pid=COMGQA2VNERMJMDD&lid=LSTCOMGQA2VNERMJMDDOYHWFF&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                        { platform: 'Amazon', price: '₹1,09,990', link: 'https://www.amazon.in/2022-Apple-MacBook-Laptop-chip/dp/B0B3C9ZHJZ' }
+                    ]
+                },
+            {
+                    name: 'Apple 2020 Macbook Air Apple M1 - (8 GB/256 GB SSD/Mac OS Big Sur)',
+                    img: 'images/m1.jpg',
+                    prices: [
+                        { platform: 'Flipkart', price: '₹73,990', link: 'https://www.flipkart.com/apple-2020-macbook-air-m1-8-gb-256-gb-ssd-mac-os-big-sur-mgn63hn-a/p/itm3c872f9e67bc6?pid=COMFXEKMGNHZYFH9&lid=LSTCOMFXEKMGNHZYFH9P56X45&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                        { platform: 'Amazon', price: '₹73,990', link: 'https://www.amazon.in/Apple-MacBook-Chip-13-inch-256GB/dp/B08N5W4NNB?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=AJ6SIZC8YQDZX' }
+                    ]
+                },
+                {
+                name: 'ASUS Zenbook S 14,3K OLED,Touch,120Hz, 500nits, Core Ultra 7 Processor (Series 2)',
+                img: 'images/asus.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹1,49,990', link: 'https://www.flipkart.com/asus-zenbook-s-14-oled-2024-next-gen-ai-pc-touchscreen-intel-core-ultra-7-32-gb-1-tb-ssd-windows-11-home-ux5406sa-pz358ws-thin-light-laptop/p/itm7c5d42e3f0368?pid=COMH3J9Y3HMZ8GUA&lid=LSTCOMH3J9Y3HMZ8GUAGGRU8M&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹1,49,990', link: 'https://www.amazon.in/ASUS-Zenbook-Processor-Scandinavian-UX5406SA-PZ358WS/dp/B0DJ14HP57?dib=eyJ2IjoiMSJ9.sHZI8j-QgQaZnfq__x_w3iXZoKJiEu3hJylHVQPiikNrmLsXVLstAXhctkSMVvdmJ7qjd4N4nR55ZycF-ozvDletFCdB2MsVU--QGtQNy0ky9o3g39Xz561ji4dqXzF6rippNIQuzY6bpDJ-W8_OBakn9SZtE998QiW4s4-k4pzWu64NzmUu_M23zUjVs2chrgo_rSobudhFZtzeUlMNb5q3UId0SAaO0keYONM1f8w.N8DL04UIij3agf4KkrTm1PIMhWd08yeFG8kiV0Gq_Dg&dib_tag=se&keywords=asus%2Bzenbook%2Bs14&nsdOptOutParam=true&qid=1730577121&sr=8-3&th=1' }
+                ]
+            },
+                {
+                    name: 'Apple 2023 MacBook Pro (16-inch, M3 Pro chip with 12‑core CPU)',
+                    img: 'images/mbp14-spacegray-select-202310.jpeg',
+                    prices: [
+                        { platform: 'Flipkart', price: '₹183,999', link: 'https://www.flipkart.com/apple-2023-macbook-pro-m3-18-gb-512-gb-ssd-macos-sonoma-mrx33hn-a/p/itm68c7a60091c54' },
+                        { platform: 'Amazon', price: '₹185,999', link: 'https://www.amazon.in/Apple-MacBook-16-inch-12%E2%80%91core-18%E2%80%91core/dp/B0CM5QG1Y1' }
+                    ]
+                },
+            {
+                    name: 'Apple MacBook Air Apple M3 - (8 GB/256 GB SSD/macOS Sonoma)',
+                    img: 'images/m3.jpg',
+                    prices: [
+                        { platform: 'Flipkart', price: '₹1,26,890', link: 'https://www.flipkart.com/apple-macbook-air-m3-8-gb-256-gb-ssd-macos-sonoma-mryp3hn-a/p/itm351cc321eb864?pid=COMGYP5GENGHKS2W&lid=LSTCOMGYP5GENGHKS2WBDLOQH&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                        { platform: 'Amazon', price: '₹1,26,890', link: 'https://www.amazon.in/dp/B0CX23D112' }
+                    ]
+                },
+                {
+                    name: 'Microsoft New Surface Laptop (7th Edition) Qualcomm Snapdragon X Plus (10 Core)',
+                    img: 'images/micro.jpg',
+                    prices: [
+                        { platform: 'Flipkart', price: '₹1,31,990', link: 'https://www.flipkart.com/microsoft-surface-laptop-7th-edition-ai-pc-qualcomm-snapdragon-x-plus-16-gb-512-gb-ssd-windows-11-home-zgm-00059/p/itm066fe9657a114?pid=COMH2ZJ5ZYKGCJCZ&lid=LSTCOMH2ZJ5ZYKGCJCZM3OM44&marketplace=FLIPKART&store=6bo%2Fb5g&srno=b_1_6&otracker=browse&fm=organic&iid=27399c5a-7aff-4947-aef9-7e69b56770e9.COMH2ZJ5ZYKGCJCZ.SEARCH&ppt=None&ppn=None&ssid=ncx51gzdpc0000001730577660573' },
+                        { platform: 'Amazon', price: '₹1,29,990', link: 'https://www.amazon.in/Microsoft-New-Surface-Laptop-7th/dp/B0D926BQL8' }
+                    ]
+                },
+                
+                
+        ];
+
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; 
+
+            products.forEach(product => {
+                const productHTML = `
+                <div class="items">
+                    <div class="product">
+                        <img class="image" src="${product.img}" alt="${product.name}">
+                    </div>
+                    <div class="cards">
+                        <div class="pro-name">
+                            <p>${product.name}</p>
+                        </div>
+                        <div>
+                            <table>
+                                ${product.prices.map(price =>
+                    `<tr>
+                        <th><a href="${price.link}" target="_blank">${price.platform}</a></th>
+                        <th>${price.price}</th>
+                    </tr>`).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+                productList.innerHTML += productHTML;
+            });
+        }
+
+      
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filteredProducts = productData.filter(product =>
+                product.name.toLowerCase().includes(query)
+            );
+            displayProducts(filteredProducts);
+        }
+
+ 
+        displayProducts(productData);
+    </script>
+</body>
+</html>

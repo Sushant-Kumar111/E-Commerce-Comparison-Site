@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcommCompare</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body><style>
+    .profile {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none; 
+        position: absolute;
+        top: 100%;
+        right: 0; 
+        background-color:#b3ddfb;
+        width: 180px; 
+        box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.776);
+        padding: 10px;
+        border-radius: 8px;
+        z-index: 1;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: bold;
+        border:2px solid black;
+    }
+
+    .dropdown-content p, .dropdown-content a {
+        margin: 0;
+        padding: 8px 0;
+        color: #01080caa;
+    }
+
+    .dropdown-content a {
+        text-decoration: none;
+        padding: 8px;
+        display: block;
+        border-top: 1px solid black;
+    }
+
+    .dropdown-content a:hover {
+        background-color:white;
+    }
+
+</style>
+
+    <div class="header">
+        <div class="logo">
+            <a href="#">EcommCompare</a>
+        </div>
+        
+        <div class="search">
+            <input
+            class="search-input"
+            type="textbox"
+            id="search-input"
+            placeholder="Search for a product..."
+            >
+            <button class="search-button" onclick="searchProducts()">
+                <img class="search-icon" src="icons/search.svg">
+            </button>
+        </div>
+        <div >
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <div class="profile border">
+                    <a href="javascript:void(0);" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i></a>
+                    <div id="dropdown" class="dropdown-content">
+                        <p id="userName">Username: Loading...</p>
+                        <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mainbody">
+        <div class="nav2">
+            
+                <a href="./mobile.html">Mobile</a>
+                <a href="./laptop.html">Laptop</a>
+                <a href="./tablets.html">Tablets</a>
+                <a href="./watches.html">Watches</a>
+                <a href="./headphones.html">Headphones</a>
+
+            
+        </div>
+        <div class="body-content" id="product-list">
+            
+        </div>
+    </div>
+
+    
+
+    <div class="footer" id="contact">
+        <h2>Contact</h2>
+        <div class="contact-sec">
+            
+            <p class="email">xyz@gmail.com</p>
+            <p>+919131478824</p>
+        </div>
+
+        
+    </div>
+
+    <script>
+        const productData = [
+            {
+                name: 'Samsung Galaxy S24 Ultra 5G AI Smartphone (Titanium Black, 12GB, 256GB Storage)',
+                img: 'images/71RVuBs3q9L._AC_UF1000,1000_QL80_.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹131,999', link: 'https://www.flipkart.com/samsung-galaxy-s24-ultra-5g-titanium-gray-512-gb/p/itm463827d6eb2be' },
+                    { platform: 'Amazon', price: '₹121,999', link: 'https://www.amazon.in/Samsung-Galaxy-Smartphone-Titanium-Storage/dp/B0CS5Z4GD3' }
+                ]
+            },
+            {
+                name: 'Apple Macbook Air Apple M2 - (8 GB/256 GB SSD/macOS Ventura)',
+                img: 'images/m2.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹1,09,990', link: 'https://www.flipkart.com/apple-macbook-air-m2-8-gb-256-gb-ssd-macos-ventura-mqkw3hn-a/p/itm3fc4c0939339a?pid=COMGQA2VNERMJMDD&lid=LSTCOMGQA2VNERMJMDDOYHWFF&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹1,09,990', link: 'https://www.amazon.in/2022-Apple-MacBook-Laptop-chip/dp/B0B3C9ZHJZ' }
+                ]
+            },
+            {
+                name: 'Apple Watch Ultra 2 GPS + Cellular 49mm Natural Titanium Case with Navy Ocean Band',
+                img: 'images/ultra2.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹89,900', link: 'https://www.flipkart.com/apple-watch-ultra-2-gps-cellular-49mm-natural-titanium-navy-ocean-band/p/itm99834d6b83bfd?pid=SMWH4JBWMVGWXWYG&lid=LSTSMWH4JBWMVGWXWYGZD793U&marketplace=FLIPKART&cmpid=content_smartwatch_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹89,900', link: 'https://www.amazon.in/Apple-Cellular-Natural-Titanium-Alpine/dp/B0DGJCZ498?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Apple 2024 iPad Pro (M4) 256 GB ROM 11.0 Inch with Wi-Fi Only (Space Black)',
+                img: 'images/ipad.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹97,900', link: 'https://www.flipkart.com/apple-2024-ipad-pro-m4-256-gb-rom-11-0-inch-wi-fi-only-space-black/p/itmcac10b3f31928?pid=TABHYZEYXT4DKQPP&lid=LSTTABHYZEYXT4DKQPPS3N4EI&marketplace=FLIPKART&cmpid=content_tablet_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹97,900', link: 'https://www.amazon.in/Apple-iPad-Pro-11%E2%80%B3-Landscape/dp/B0D3J8W62R?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Apple 2020 Macbook Air Apple M1 - (8 GB/256 GB SSD/Mac OS Big Sur)',
+                img: 'images/m1.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹73,990', link: 'https://www.flipkart.com/apple-2020-macbook-air-m1-8-gb-256-gb-ssd-mac-os-big-sur-mgn63hn-a/p/itm3c872f9e67bc6?pid=COMFXEKMGNHZYFH9&lid=LSTCOMFXEKMGNHZYFH9P56X45&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹73,990', link: 'https://www.amazon.in/Apple-MacBook-Chip-13-inch-256GB/dp/B08N5W4NNB?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=AJ6SIZC8YQDZX' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Buds 3 Pro (White) with Galaxy AI',
+                img: 'images/sams3.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹19,845', link: 'https://www.flipkart.com/samsung-galaxy-buds-3-pro-bluetooth/p/itm016b1079d82cc?pid=ACCH28Z8GSWSBFMV&lid=LSTACCH28Z8GSWSBFMVTJSDGA&marketplace=FLIPKART&sattr[]=color&st=color' },
+                    { platform: 'Amazon', price: '₹19,999', link: 'https://www.amazon.in/Samsung-Adaptive-Real-Time-Interpreter-Battery/dp/B0D7M3QQQM?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Apple iPhone 16 Pro Max (White Titanium, 256 GB)',
+                img: 'images/iPhone_16_Pro_Max_White_Titanium_PDP_Image_Position_1__en-IN_1838989e-5eca-4e95-a375-c9022f2892c9.webp',
+                prices: [
+                    { platform: 'Flipkart', price: '₹160,999', link: 'https://www.flipkart.com/apple-iphone-16-pro-max-desert-titanium-256-gb/p/itmb102b8a51100e?pid=MOBH4DQFTQHZAKAF&lid=LSTMOBH4DQFTQHZAKAFRC45AZ&marketplace=FLIPKART&cmpid=content_mobile_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹164,999', link: 'https://www.amazon.in/Apple-iPhone-Pro-Max-512/dp/B0DGHW2SRL/ref=sr_1_3?dib=eyJ2IjoiMSJ9.dmN1xGMIuidynRjNSyF4fqQB60ziLlnS5dssSidjAc9AvQMNuR_3XoSyH01Ri9NkWzGPHrsnCBLsCnJ39Jnx6KA6cXFgOXQ1mrqo8am7mPdLhx7yAaTbtPhlM0PQSPcHhR9Ft_SXVW0BWNfJPVQDs8h4Da-RQb9LNnEnyiSU7FdNWaUA5p44tsLkhc_9c551K6H6hkE_mQVDocmeVfSPqg1_6bX-Q9PZlYxwA-4bvbM.PM5qceqKdcKV5x1uahMT_pjPA35-pwfahDyvDlw6vDc&dib_tag=se&keywords=iphone+16+pro+max&qid=1727408045&sr=8-3' }
+                ]
+            },
+            {
+                name: 'Apple iPad Air 13″ (M2)- Blue',
+                img: 'images/iair.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹87,900', link: 'https://www.flipkart.com/apple-ipad-air-m2-256-gb-rom-13-0-inch-wi-fi-only-starlight/p/itmb4edf57704cb4?pid=TABHYZEYX9GEBUHY&lid=LSTTABHYZEYX9GEBUHYZ0VJOJ&marketplace=FLIPKART' },
+                    { platform: 'Amazon', price: '₹79,900', link: 'https://www.amazon.in/Apple-iPad-Air-13%E2%80%B3-Landscape/dp/B0D3J6QTRC?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Google Pixel 9 Pro XL (Porcelain, 256 GB)',
+                img: 'images/71NRTIgZjXL.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹1,24,999', link: 'https://www.flipkart.com/google-pixel-9-pro-xl-porcelain-256-gb/p/itm23d7e159c924d?pid=MOBH2HJGE33F8KHN' },
+                    { platform: 'Amazon', price: '₹1,22,999', link: 'https://www.amazon.com/Google-Pixel-Pro-Unlocked-Smartphone/dp/B0D7HVCD91' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Tab S9, S Pen in-Box, Gray',
+                img: 'images/s9.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹72,999', link: 'https://www.flipkart.com/samsung-galaxy-tab-s9-8-gb-ram-128-rom-11-0-inch-wi-fi-only-tablet-graphite/p/itm991f5eae4f9d2?pid=TABGRT4MHGYCQGQN&lid=LSTTABGRT4MHGYCQGQNQRDAAY&marketplace=FLIPKART&store=tyy%2Fhry&srno=b_1_7&otracker=browse&fm=organic&iid=c385c1a4-e831-41ce-9915-67a567674682.TABGRT4MHGYCQGQN.SEARCH&ppt=pp&ppn=pp&ssid=usmlrh8tmo0000001730579694868' },
+                    { platform: 'Amazon', price: '₹72,999', link: 'https://www.amazon.in/Samsung-Galaxy-Dynamic-Display-Expandable/dp/B0CCRWTG1S?th=1' }
+                ]
+            },
+            {
+                name: 'Apple 2023 MacBook Pro (16-inch, M3 Pro chip with 12‑core CPU)',
+                img: 'images/mbp14-spacegray-select-202310.jpeg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹183,999', link: 'https://www.flipkart.com/apple-2023-macbook-pro-m3-18-gb-512-gb-ssd-macos-sonoma-mrx33hn-a/p/itm68c7a60091c54' },
+                    { platform: 'Amazon', price: '₹185,999', link: 'https://www.amazon.in/Apple-MacBook-16-inch-12%E2%80%91core-18%E2%80%91core/dp/B0CM5QG1Y1' }
+                ]
+            },
+            {
+                name: 'Apple Watch Ultra [GPS + Cellular 49 mm] smart watch w/Rugged Titanium Case & Orange Alpine Loop',
+                img: 'images/ultra1.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹74,999', link: 'https://www.flipkart.com/apple-watch-ultra-gps-cellular/p/itm4b2d1db108849' },
+                    { platform: 'Amazon', price: '₹74,999', link: 'https://www.amazon.in/Apple-Cellular-Rugged-Titanium-Orange/dp/B0BDKGNMJQ?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Buds 3 (Silver) with Galaxy AI Powered Real-time Interpreter',
+                img: 'images/samsung.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹13,855', link: 'https://www.flipkart.com/samsung-galaxy-buds-3-bluetooth/p/itma79f55056b77f?pid=ACCH28ZAJSVH96G2&lid=LSTACCH28ZAJSVH96G2NG2KLR&marketplace=FLIPKART&cmpid=content_headphone_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹12,999', link: 'https://www.amazon.in/Samsung-Powered-Real-time-Interpreter-Battery/dp/B0D7M34JXY?th=1' }
+                ]
+            },
+            {
+                name: 'Apple iPhone 16 (White, 128 GB)',
+                img: 'images/iphone16.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹79,990', link: 'https://www.flipkart.com/apple-iphone-16-ultramarine-128-gb/p/itmcc210cae43fba?pid=MOBH4DQFYZT6EH2F&lid=LSTMOBH4DQFYZT6EH2FP6PUJU&marketplace=FLIPKART&sattr[]=color&sattr[]=storage&st=color' },
+                    { platform: 'Amazon', price: '₹79,990', link: 'https://www.amazon.in/Apple-iPhone-16-128-GB/dp/B0DGJ7TGDR?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            {
+                name: 'ASUS Zenbook S 14,3K OLED,Touch,120Hz, 500nits, Core Ultra 7 Processor (Series 2)',
+                img: 'images/asus.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹1,49,990', link: 'https://www.flipkart.com/asus-zenbook-s-14-oled-2024-next-gen-ai-pc-touchscreen-intel-core-ultra-7-32-gb-1-tb-ssd-windows-11-home-ux5406sa-pz358ws-thin-light-laptop/p/itm7c5d42e3f0368?pid=COMH3J9Y3HMZ8GUA&lid=LSTCOMH3J9Y3HMZ8GUAGGRU8M&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹1,49,990', link: 'https://www.amazon.in/ASUS-Zenbook-Processor-Scandinavian-UX5406SA-PZ358WS/dp/B0DJ14HP57?dib=eyJ2IjoiMSJ9.sHZI8j-QgQaZnfq__x_w3iXZoKJiEu3hJylHVQPiikNrmLsXVLstAXhctkSMVvdmJ7qjd4N4nR55ZycF-ozvDletFCdB2MsVU--QGtQNy0ky9o3g39Xz561ji4dqXzF6rippNIQuzY6bpDJ-W8_OBakn9SZtE998QiW4s4-k4pzWu64NzmUu_M23zUjVs2chrgo_rSobudhFZtzeUlMNb5q3UId0SAaO0keYONM1f8w.N8DL04UIij3agf4KkrTm1PIMhWd08yeFG8kiV0Gq_Dg&dib_tag=se&keywords=asus%2Bzenbook%2Bs14&nsdOptOutParam=true&qid=1730577121&sr=8-3&th=1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy S24 5G AI Smartphone (Amber Yellow, 8GB, 128GB Storage)',
+                img: 'images/s24.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹62,999', link: 'https://www.flipkart.com/samsung-galaxy-s24-5g-amber-yellow-128-gb/p/itmc7715e16403d1?pid=MOBHYJ6QMSGJG28G&lid=LSTMOBHYJ6QMSGJG28GKEE5UE&marketplace=FLIPKART&cmpid=content_mobile_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹55,499', link: 'https://www.amazon.in/Samsung-Galaxy-Smartphone-Yellow-Storage/dp/B0CS5ZZMN8?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A2FS4NK0NQR709&th=1' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Tab S8 Ultra 37.08 cm (14.6 inch), Graphite',
+                img: 'images/s8.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹86,999', link: 'https://www.flipkart.com/samsung-galaxy-tab-s8-ultra-stylus-12-gb-ram-256-rom-14-6-inch-wi-fi-5g-tablet-graphite/p/itma38ff119833b7' },
+                    { platform: 'Amazon', price: '₹86,999', link: 'https://www.amazon.in/Samsung-sAMOLED-Display-Expandable-Graphite/dp/B09RQWX469?th=1' }
+                ]
+            },
+            {
+                name: 'Google Pixel 9 (Peony, 256 GB)  (12 GB RAM)',
+                img: 'images/pixel-9.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹79,999', link: 'https://www.flipkart.com/google-pixel-9-peony-256-gb/p/itmdfee129571238?pid=MOBH2HJGNG6PVUYH&lid=LSTMOBH2HJGNG6PVUYHXGA7EB&marketplace=FLIPKART&sattr[]=color&st=color' },
+                    { platform: 'Amazon', price: '₹79,999', link: 'https://www.amazon.in/Obsidian-12GB-RAM-128GB-Storage/dp/B0DBG4Q7DQ' }
+                ]
+            },
+            {
+                name: 'Samsung Galaxy Watch Ultra (47mm, LTE, Gray) ',
+                img: 'images/sams.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹59,999', link: 'https://www.flipkart.com/samsung-galaxy-watch-ultra/p/itmb2a8dd1d2e928' },
+                    { platform: 'Amazon', price: '₹46,950', link: 'https://www.amazon.in/Samsung-Battery-Processor-Sapphire-Titanium/dp/B0D7M54GMJ?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A2FABMLW9MRIQN&th=1' }
+                ]
+            },
+            {
+                name: 'Apple MacBook Air Apple M3 - (8 GB/256 GB SSD/macOS Sonoma)',
+                img: 'images/m3.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹1,26,890', link: 'https://www.flipkart.com/apple-macbook-air-m3-8-gb-256-gb-ssd-macos-sonoma-mryp3hn-a/p/itm351cc321eb864?pid=COMGYP5GENGHKS2W&lid=LSTCOMGYP5GENGHKS2WBDLOQH&marketplace=FLIPKART&cmpid=content_computer_8965229628_gmc' },
+                    { platform: 'Amazon', price: '₹1,26,890', link: 'https://www.amazon.in/dp/B0CX23D112' }
+                ]
+            },
+            {
+                    name: 'Microsoft New Surface Laptop (7th Edition) Qualcomm Snapdragon X Plus (10 Core)',
+                    img: 'images/micro.jpg',
+                    prices: [
+                        { platform: 'Flipkart', price: '₹1,31,990', link: 'https://www.flipkart.com/microsoft-surface-laptop-7th-edition-ai-pc-qualcomm-snapdragon-x-plus-16-gb-512-gb-ssd-windows-11-home-zgm-00059/p/itm066fe9657a114?pid=COMH2ZJ5ZYKGCJCZ&lid=LSTCOMH2ZJ5ZYKGCJCZM3OM44&marketplace=FLIPKART&store=6bo%2Fb5g&srno=b_1_6&otracker=browse&fm=organic&iid=27399c5a-7aff-4947-aef9-7e69b56770e9.COMH2ZJ5ZYKGCJCZ.SEARCH&ppt=None&ppn=None&ssid=ncx51gzdpc0000001730577660573' },
+                        { platform: 'Amazon', price: '₹1,29,990', link: 'https://www.amazon.in/Microsoft-New-Surface-Laptop-7th/dp/B0D926BQL8' }
+                    ]
+                },
+                {
+                name: 'Samsung Galaxy Buds 3 Pro (White) with Galaxy AI',
+                img: 'images/sams3.jpg',
+                prices: [
+                    { platform: 'Flipkart', price: '₹19,845', link: 'https://www.flipkart.com/samsung-galaxy-buds-3-pro-bluetooth/p/itm016b1079d82cc?pid=ACCH28Z8GSWSBFMV&lid=LSTACCH28Z8GSWSBFMVTJSDGA&marketplace=FLIPKART&sattr[]=color&st=color' },
+                    { platform: 'Amazon', price: '₹19,999', link: 'https://www.amazon.in/Samsung-Adaptive-Real-Time-Interpreter-Battery/dp/B0D7M3QQQM?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=AJ6SIZC8YQDZX&th=1' }
+                ]
+            },
+            
+            
+        ];
+
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; 
+
+            products.forEach(product => {
+                const productHTML = `
+                <div class="items">
+                    <div class="product">
+                        <img class="image" src="${product.img}" alt="${product.name}">
+                    </div>
+                    <div class="cards">
+                        <div class="pro-name">
+                            <p>${product.name}</p>
+                        </div>
+                        <div>
+                            <table>
+                                ${product.prices.map(price =>
+                    `<tr>
+                        <th><a href="${price.link}" target="_blank">${price.platform}</a></th>
+                        <th>${price.price}</th>
+                    </tr>`).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+                productList.innerHTML += productHTML;
+            });
+        }
+
+      
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filteredProducts = productData.filter(product =>
+                product.name.toLowerCase().includes(query)
+            );
+            displayProducts(filteredProducts);
+        }
+
+ 
+        displayProducts(productData);
+
+        function toggleDropdown() {
+            let dropdown = document.getElementById('dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+
+            if (dropdown.style.display === 'block') {
+                fetchUserDetails();
+            }
+        }
+
+        function fetchUserDetails() {
+            fetch('getUserDetails.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('userName').innerText = `Username: ${data.username}`;
+                    } else {
+                        document.getElementById('userName').innerText = 'Username: Not available';
+                        alert(data.message || 'Failed to fetch user details.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user details:', error);
+                    document.getElementById('userName').innerText = 'Username: Error';
+                });
+        }
+
+        function logout() {
+            // Perform logout action
+            window.location.href = './login.html';
+        }
+    </script>
+</body>
+</html>
